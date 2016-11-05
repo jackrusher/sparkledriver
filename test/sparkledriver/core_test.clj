@@ -14,13 +14,13 @@
              "Clojure is a robust, practical, and fast programming language with a set of useful features that together form a simple, coherent, and powerful tool."))
       (is (= (distinct (map tag (find-by-class* browser "w-container")))
              '("div")))
-      (is (= (->> (find-by-tag browser "form") (attr "action"))
+      (is (= (-> (find-by-tag browser "form") (attr "action"))
              "http://clojure.org/search"))
-      (is (= (sort (mapv (partial attr "name") (find-by-tag* browser "meta")))
+      (is (= (sort (mapv #(attr % "name") (find-by-tag* browser "meta")))
              '(nil "generator" "google-site-verification" "google-site-verification" "viewport")))
-      (is (= (attr "name" (find-by-id browser "wf-form-Search-Form"))
+      (is (= (attr (find-by-id browser "wf-form-Search-Form") "name")
              "wf-form-Search-Form"))
-      (is (= (css-value "color" (find-by-id browser "wf-form-Search-Form"))
+      (is (= (css-value (find-by-id browser "wf-form-Search-Form") "color")
              "rgba(68, 68, 68, 1)")))
 
     (testing "Lastly, a few words from Rich Hickey."

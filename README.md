@@ -36,8 +36,8 @@ a quick start:
 ;;=> "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use."
 ```
 
-There are doc strings for every function, and the tests provide
-several more usage examples.
+In the meantime, there are doc strings for every function and macro,
+and the tests provide several more usage examples.
 
 ## License
 

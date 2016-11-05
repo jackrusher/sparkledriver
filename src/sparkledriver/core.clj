@@ -117,12 +117,12 @@
 
 (defn attr
   "Return the value of `attribute` for `element`"
-  [attribute element]
+  [element attribute]
   (.getAttribute element attribute))
 
 (defn css-value
   "Return the value of CSS `property` for `element`"
-  [property element]
+  [element property]
   (.getCssValue element property))
 
 (defn inner-html
