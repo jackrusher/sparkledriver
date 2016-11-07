@@ -8,10 +8,12 @@ which is a pure-Java [Selenium]()-compatible wrapper around the
 [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784)
 framework.
 
-This library is particularly useful if you have need of a full
-featured browser from within your Clojure code. One can use such a
-thing to interact with a website in many ways, including testing web
-applications, scraping content, and so on.
+This library is particularly useful if you have need of a
+full-featured browser with support for Javascript, cookies, and the
+lot, from within your Clojure code. One can use such a thing to
+interact with a website in many ways, including testing web
+applications, scraping content, automating interactions with services,
+and so on.
 
 ## Completeness
 
@@ -24,6 +26,10 @@ production work, so what's included is very well tested.
 
 I intend to write more documentation soon, but in the meantime here's
 a quick start:
+
+``` clojure
+[sparkledriver "0.1.0"]
+```
 
 ``` clojure
 (require '[sparkledriver.core :refer [with-browser make-browser fetch! find-by-xpath* text]])
