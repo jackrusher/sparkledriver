@@ -5,4 +5,5 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [com.machinepublishers/jbrowserdriver "0.17.1"]]
-  :profiles {:test {:dependencies [[org.slf4j/slf4j-simple "1.7.2"]]}})
+  :profiles {:test {:dependencies [[org.slf4j/slf4j-simple "1.7.2"]]}}
+  :deploy-repositories [["releases" :clojars]])
