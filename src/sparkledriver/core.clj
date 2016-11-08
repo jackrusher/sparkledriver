@@ -3,7 +3,9 @@
 ;; TODO should add parameterization for the builder using `args`
 (defn make-browser
   "Creates a new headless browser instance."
-  [& args]
+  [& params]
+  (assert (or (= nil params) (even? (count params)))
+          "The params to make-browser must be an even number of key-value pairs.")
   (com.machinepublishers.jbrowserdriver.JBrowserDriver.
    (-> (com.machinepublishers.jbrowserdriver.Settings/builder)
        (.headless true)
@@ -99,6 +101,16 @@
   "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
   [browser-or-elem xpath]
   (.findElementsByXPath browser-or-elem xpath))
+
+(defn find-by-css
+  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  [browser-or-elem css-selector]
+  (.findElementByCssSelector browser-or-elem css-selector))
+
+(defn find-by-css*
+  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  [browser-or-elem css-selector]
+  (.findElementsByCssSelector browser-or-elem css-selector))
 
 (defn tag
   "Return the tag name of `element`"
