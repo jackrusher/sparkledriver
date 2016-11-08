@@ -28,7 +28,7 @@ I intend to write more documentation soon, but in the meantime here's
 a quick start:
 
 ``` clojure
-[sparkledriver "0.1.0"]
+[sparkledriver "0.1.1"]
 ```
 
 ``` clojure
