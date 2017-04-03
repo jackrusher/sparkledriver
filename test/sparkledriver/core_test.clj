@@ -11,9 +11,9 @@
       (is (= (-> (find-by-tag browser "h2") text)
              "The Clojure Programming Language"))
       (is (= (-> (find-by-tag browser "form") (attr "action"))
-             "http://clojure.org/search"))
+             "https://clojure.org/search"))
       (is (= (sort (mapv #(attr % "name") (find-by-tag* browser "meta")))
-             '(nil "generator" "google-site-verification" "google-site-verification" "viewport"))))
+             '(nil "generator" "google-site-verification" "google-site-verification" "keywords" "viewport"))))
     
     (testing "class selectors"
       (is (= (text (find-by-class browser "clj-header-message"))

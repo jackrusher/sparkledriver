@@ -1,6 +1,13 @@
 (ns sparkledriver.core)
 
-;; TODO should add parameterization for the builder using `args`
+;; TODO add arbitrary JS execution API
+;; Object	executeAsyncScript(String script, Object... args)
+;; Execute an asynchronous piece of JavaScript in the context of the currently selected frame or window.
+;; Object	executeScript(String script, Object... args)
+;; Executes JavaScript in the context of the currently selected frame or window.
+
+;; TODO should add parameterization for the builder using `args`,
+;; including .logTrace(true) .logWire(true)
 (defn make-browser
   "Creates a new headless browser instance."
   [& params]
@@ -67,50 +74,56 @@
   [browser]
   (.getPageSource browser))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; finding elements
+
 (defn find-by-id
-  "Return the single element with `id` that's a child of `browser-or-elem` (which can be a browser or element)."
+  "Return the single element with `id` that's a child of `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem id]
   (.findElementById browser-or-elem id))
 
 (defn find-by-tag
-  "Return the first element with tag name `tag` that's a child of `browser-or-elem` (which can be a browser or element)."
+  "Return the first element with tag name `tag` that's a child of `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem tag]
   (.findElementByTagName browser-or-elem tag))
 
 (defn find-by-tag*
-  "Return all elements with tag name `tag` that are children of `browser-or-elem` (which can be a browser or element)."
+  "Return all elements with tag name `tag` that are children of `browser-or-elem` (which can be a browser or element) or an empty sequence."
   [browser-or-elem tag]
   (.findElementsByTagName browser-or-elem tag))
 
 (defn find-by-class
-  "Return the first element with class name `class` that's a child of `browser-or-elem` (which can be a browser or element)."
+  "Return the first element with class name `class` that's a child of `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem class]
   (.findElementByClassName browser-or-elem class))
 
 (defn find-by-class*
-  "Return all elements with class name `class` that are children of `browser-or-elem` (which can be a browser or element)."
+  "Return all elements with class name `class` that are children of `browser-or-elem` (which can be a browser or element) or an empty sequence."
   [browser-or-elem class]
   (.findElementsByClassName browser-or-elem class))
 
 (defn find-by-xpath
-  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem xpath]
   (.findElementByXPath browser-or-elem xpath))
 
 (defn find-by-xpath*
-  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element) or an empty sequence."
   [browser-or-elem xpath]
   (.findElementsByXPath browser-or-elem xpath))
 
 (defn find-by-css
-  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem css-selector]
   (.findElementByCssSelector browser-or-elem css-selector))
 
 (defn find-by-css*
-  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element)."
+  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element) or an empty sequence."
   [browser-or-elem css-selector]
   (.findElementsByCssSelector browser-or-elem css-selector))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Interrogating elements
 
 (defn tag
   "Return the tag name of `element`"
@@ -123,7 +136,7 @@
   (.getAttribute element "id"))
 
 (defn text
-  "Return the complete textual content of `element` (including children)."
+  "Return the complete textual content of `element` (including any children)."
   [element]
   (.getText element))
 
@@ -172,6 +185,39 @@
   "Submit `element`, which should be an HTML <form>."
   [element]
   (.submit element))
+
+(defn displayed?
+  "Is this element displayed or not? This method avoids the problem of having to parse an element's CSS."
+  [element]
+  (.isDisplayed element))
+
+(defn enabled?
+  "Is the element currently enabled or not? This will generally return true for everything but disabled input elements."
+  [element]
+  (.isEnabled element))
+
+(defn selected?
+  "Return whether or not this element is selected "
+  [element]
+  (.isSelected element))
+
+(defn location
+  "Location on the page of the top left-hand corner of the rendered element."
+  [element]
+  (.getLocation element))
+
+(defn size
+  "What is the width and height of the rendered element?"
+  [element]
+  (.getSize element))
+
+(defn rectangle
+  "The location and size of the rendered element."
+  [element]
+  (.getRect element))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; helpers
 
 (defn browser-cookies->map
   "Convert `browser`'s current cookies into the map format used by clj-http."
