@@ -244,7 +244,7 @@
 (defn logs
   "Return `browser`'s logs of whatever `kind`, or all if not specified. See http://machinepublishers.github.io/jBrowserDriver/org/openqa/selenium/logging/LogEntry.html for details of the returned items."
   [browser & kind]
-  (iterator-seq (.iterator (.get (.logs (.manage b)) (or kind "all")))))
+  (iterator-seq (.iterator (.get (.logs (.manage browser)) (or kind "all")))))
 
 ;; z.B.
 ;;(map #(.getMessage %) (logs b))
