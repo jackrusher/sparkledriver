@@ -6,30 +6,47 @@
 ;; Object	executeScript(String script, Object... args)
 ;; Executes JavaScript in the context of the currently selected frame or window.
 
-;; TODO should add parameterization for the builder using `args`,
-;; including .logTrace(true) .logWire(true)
+(def browser-options
+  "The possible options for building a browser instance. The format is {:option [default setter-fn]}."
+  {;; how load to wait for resources loaded by ajax
+   :ajax-load-timeout [30000 #(.ajaxResourceTimeout %1 %2)]
+   ;; how long to wait for JS to run after page load
+   :ajax-wait         [200 #(.ajaxWait %1 %2)]
+   ;; use a local browser cache
+   :cache             [true #(.cache %1 %2)]
+   ;; if false, open a window so you can watch it work
+   :headless          [true #(.headless %1 %2)]
+   ;; increased logging
+   :log-trace         [false #(.logTrace %1 %2)]
+   :log-wire          [false #(.logWire %1 %2)]
+   :request-headers   [com.machinepublishers.jbrowserdriver.RequestHeaders/CHROME #(.requestHeaders %1 %2)]
+   ;; store copies of media and attachments in a temporary folder
+   :save-attachments  [true #(.saveAttachments %1 %2)]
+   :save-media?       [true #(.saveMedia %1 %2)]
+   ;; be accepting of weird SSL certs
+   :ssl-policy        ["compatible" #(.ssl %1 %2)]
+   :timezone          [com.machinepublishers.jbrowserdriver.Timezone/AMERICA_NEWYORK #(.timezone %1 %2)]
+   :user-agent        [com.machinepublishers.jbrowserdriver.UserAgent/CHROME #(.userAgent %1 %2)]
+   ;; SSL certificate verification, off by default because the internet is broken
+   :verify-hostname?  [false #(.hostnameVerification %1 %2)]})
+
 (defn make-browser
   "Creates a new headless browser instance."
-  [& params]
-  (assert (or (= nil params) (even? (count params)))
-          "The params to make-browser must be an even number of key-value pairs.")
-  (com.machinepublishers.jbrowserdriver.JBrowserDriver.
-   (-> (com.machinepublishers.jbrowserdriver.Settings/builder)
-       (.headless true)
-       (.timezone com.machinepublishers.jbrowserdriver.Timezone/AMERICA_NEWYORK)
-       (.userAgent com.machinepublishers.jbrowserdriver.UserAgent/CHROME)
-       (.requestHeaders com.machinepublishers.jbrowserdriver.RequestHeaders/CHROME)
-       ;; accept bad security from broken sites
-       (.ssl "compatible")
-       (.hostnameVerification false)
-       ;; cache all files the browser encounters until exit
-       (.saveMedia true)
-       (.saveAttachments true)
-       (.cache true)
-       ;; ajax timing, super lenient for bad websites!
-       (.ajaxResourceTimeout 30000) ; 30 seconds to timeout ajax
-       (.ajaxWait 200)              ; 200 ms to run js
-       .build)))
+  [& options]
+  (assert (or (= nil options) (even? (count options)))
+          "The options to make-browser must be an even number of key-value pairs.")
+  (let [merged-opts (->> (partition 2 options)
+                         (reduce (fn [a [k v]]
+                                   (if-let [[default setter-fn] (get browser-options k)]
+                                     (assoc a k [v setter-fn])
+                                     (throw (IllegalArgumentException. "Invalid browser option."))))
+                                 browser-options)
+                         vals)]
+    (com.machinepublishers.jbrowserdriver.JBrowserDriver.
+     (.build (reduce (fn [builder [v f]]
+                       (f builder v))
+                     (com.machinepublishers.jbrowserdriver.Settings/builder)
+                     merged-opts)))))
 
 (defn close-browser!
   "Close a browser instance, killing the underlying subprocess and freeing all resources."
@@ -215,6 +232,22 @@
   "The location and size of the rendered element."
   [element]
   (.getRect element))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; interrogate logs
+
+(defn available-log-types
+  "Return a set of strings representing the types of logs available for `browser`. N.B. `browser` must have been initialized with some kind of logging enabled, for isntance :log-trace or :log-wire."
+  [browser]
+  (.getAvailableLogTypes (.logs (.manage browser))))
+
+(defn logs
+  "Return `browser`'s logs of whatever `kind`, or all if not specified. See http://machinepublishers.github.io/jBrowserDriver/org/openqa/selenium/logging/LogEntry.html for details of the returned items."
+  [browser & kind]
+  (iterator-seq (.iterator (.get (.logs (.manage b)) (or kind "all")))))
+
+;; z.B.
+;;(map #(.getMessage %) (logs b))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helpers
