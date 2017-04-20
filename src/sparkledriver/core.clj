@@ -1,8 +1,10 @@
 (ns sparkledriver.core)
 
 ;; TODO add arbitrary JS execution API
+
 ;; Object	executeAsyncScript(String script, Object... args)
 ;; Execute an asynchronous piece of JavaScript in the context of the currently selected frame or window.
+
 ;; Object	executeScript(String script, Object... args)
 ;; Executes JavaScript in the context of the currently selected frame or window.
 
@@ -252,6 +254,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helpers
 
+(defn page-wait
+  "Blocks until the browser's current page quiesces."
+  [browser]
+  (.pageWait browser))
+
+(defn attachments-dir
+  "Return the path to the directory where the browser is storing attachment files."
+  [browser]
+  (.attachmentsDir browser))
+
+(defn media-dir
+  "Return the path to the directory where the browser is storing media files."
+  [browser]
+  (.mediaDir browser))
+
+(defn cache-dir
+  "Return the path to the directory where the browser is storing cached files."
+  [browser]
+  (.cacheDir browser))
+
 (defn browser-cookies->map
   "Convert `browser`'s current cookies into the map format used by clj-http."
   [browser]
@@ -262,10 +284,3 @@
             :value  (.getValue %2)})
    {}
    (.getCookies (.manage browser))))
-
-;; TODO where files are dropped
-;; (.attachmentsDir browser)
-;; (.mediaDir browser)
-;; (.cacheDir browser)
-
-

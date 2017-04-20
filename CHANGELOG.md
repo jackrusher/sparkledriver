@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file. This change
 ## [Unreleased]
 ### Changed
 
-## [0.1.2] - 2017-04-19
+## [0.1.5] - 2017-04-20
+### Added
+- page-wait
+- attachments-dir
+- media-dir
+- cache-dir
+
+## [0.1.4] - 2017-04-19
+### Fixed
+- terrible error where code wouldn't compile
+
+## [0.1.3] - 2017-04-19
 ### Added
 - Parameterized browser options
 - Browser log access functions (wire tracing, for example)
