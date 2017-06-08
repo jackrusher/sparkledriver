@@ -25,6 +25,8 @@
    ;; store copies of media and attachments in a temporary folder
    :save-attachments  [true #(.saveAttachments %1 %2)]
    :save-media?       [true #(.saveMedia %1 %2)]
+   ;; set browser screen dimentions - 1000x600 is the JBrowserdriver default
+   :screen            [[1000 600] #(.screen (org.openqa.selenium.Dimension. %1) %2)]
    ;; be accepting of weird SSL certs
    :ssl-policy        ["compatible" #(.ssl %1 %2)]
    :timezone          [com.machinepublishers.jbrowserdriver.Timezone/AMERICA_NEWYORK #(.timezone %1 %2)]
