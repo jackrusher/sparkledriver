@@ -39,7 +39,7 @@
                  text)
              "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use.")))))
 
-;; (with-browser [browser (fetch! (make-browser) "http://clojure.org")]
-;;   (page-wait browser)
+;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) "http://clojure.org")]
+;; ;;  (page-wait browser)
 ;;   (println (status-code browser))
 ;;   (println (-> (find-by-tag browser "h2") text)))

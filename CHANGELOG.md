@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. This change
 ## [Unreleased]
 ### Changed
 
+## [0.1.6] - 2017-06-08
+### Added
+- `:screen-size [width height]` browser builder option to change the
+  window size of the virtual browser.
+### Changed
+- jBrowserDriver version 0.17.8
+- default browser window size is now 1366 x 768
+
 ## [0.1.5] - 2017-04-20
 ### Added
 - page-wait
