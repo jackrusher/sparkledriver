@@ -284,3 +284,4 @@
             :value  (.getValue %2)})
    {}
    (.getCookies (.manage browser))))
+
