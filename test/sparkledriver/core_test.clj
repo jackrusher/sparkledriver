@@ -39,7 +39,15 @@
                  text)
              "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use.")))))
 
+;; (def browser (fetch! (make-browser :screen-size [1900 1000]) "http://clojure.org"))
+;; (.executeScript browser
+;;                 "alert(\"hi\");"
+;;                 (make-array Object 0))
+;; (def alert (switch-to-alert browser))
+;; (dismiss-alert alert)
+;; (screenshot browser)
+
 ;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) "http://clojure.org")]
-;; ;;  (page-wait browser)
 ;;   (println (status-code browser))
-;;   (println (-> (find-by-tag browser "h2") text)))
+;;   (println (-> (find-by-tag browser "h2") text))
+;; )

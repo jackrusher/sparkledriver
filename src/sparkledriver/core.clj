@@ -239,6 +239,58 @@
   (.getRect element))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; browser windows
+
+(defn current-window
+  "Return a handle for the currently active `browser` window."
+  [browser]
+  (.getWindowHandle browser))
+
+(defn all-windows
+  "Return a set of handles for all `browser` windows."
+  [browser]
+  (.getWindowHandles browser))
+
+(defn switch-to-window
+  "Switch `browser` to `window`, which should be a handle returned by all-windows or current-window."
+  [browser window]
+  (.window (.switchTo browser) window))
+
+(defn maximize-window
+  "Maximize `browser`'s currently focused window."
+  [browser]
+  (.maximize (.window (.manage browser))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; alert handling
+
+(defn switch-to-alert
+  "Switch `browser`'s focus to the current alert popup. Returns the alert's handle."
+  [browser]
+  (.alert (.switchTo browser)))
+
+(defn accept-alert
+  "Accept an alert."
+  [alert]
+  (.accept alert))
+
+(defn dismiss-alert
+  "Dismisses an alert."
+  [alert]
+  (.dismiss alert))
+
+;; XXX currently locks up and never comes back! Upstream problem in
+;; jBrowserDriver?
+;;
+;; (defn alert-text
+;;   "Returns the text of an alert."
+;;   [alert]
+;;   (.getText alert))
+
+;; TODO add typing into alerts...
+;;void	sendKeys(String keysToSend) 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; interrogate logs
 
 (defn available-log-types

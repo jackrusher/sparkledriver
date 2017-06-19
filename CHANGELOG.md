@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This change
 ## [Unreleased]
 ### Changed
 
+## [0.1.7] - 2017-06-19
+### Added
+- functions for interacting with `alert`s (`switch-to-alert`,
+  `accept-alert`, `dismiss-alert`) and multiple windows
+  (`current-window`, `all-windows`, `switch-to-window`,
+  `maximize-window`).
+
 ## [0.1.6] - 2017-06-08
 ### Added
 - `:screen-size [width height]` browser builder option to change the
