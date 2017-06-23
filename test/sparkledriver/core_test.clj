@@ -80,18 +80,17 @@
       (is (= (-> (find-by-xpath* browser "//p[@class='some-revelation']/span")
                  (second)
                  text)
-             "The ceremony of innocence is drowned"))))
+             "The ceremony of innocence is drowned")))
+
+    (testing "javascript execution"
+      (execute-script browser "document.getElementById(\"heroic\")[\"data-villainous\"] = \"frenemy\";")
+      (is (= (attr (find-by-id browser "heroic") "data-villainous")
+             "frenemy"))))
   (stop-server))
 
-;; (def browser (fetch! (make-browser :screen-size [1900 1000]) "http://clojure.org"))
-;; (.executeScript browser
-;;                 "alert(\"hi\");"
-;;                 (make-array Object 0))
-;; (def alert (switch-to-alert browser))
-;; (dismiss-alert alert)
-;; (screenshot browser)
+;;(def browser (fetch! (make-browser) (str "http://0.0.0.0:" port)))
 
-;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) "http://clojure.org")]
+;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) (str "http://0.0.0.0:" port))]
 ;;   (println (status-code browser))
 ;;   (println (-> (find-by-tag browser "h2") text))
 ;; )

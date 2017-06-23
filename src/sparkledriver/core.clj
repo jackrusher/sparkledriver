@@ -1,13 +1,5 @@
 (ns sparkledriver.core)
 
-;; TODO add arbitrary JS execution API
-
-;; Object	executeAsyncScript(String script, Object... args)
-;; Execute an asynchronous piece of JavaScript in the context of the currently selected frame or window.
-
-;; Object	executeScript(String script, Object... args)
-;; Executes JavaScript in the context of the currently selected frame or window.
-
 (def browser-options
   "The possible options for building a browser instance. The format is {:option [default setter-fn]}."
   {;; how load to wait for resources loaded by ajax
@@ -291,6 +283,19 @@
 ;;void	sendKeys(String keysToSend) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; exec arbitrary javascript
+
+(defn execute-script
+  "Executes JavaScript `script` in the context of the currently selected frame or window of `browser` with `arguments`."
+  [browser script & arguments]
+  (.executeScript browser script (to-array arguments)))
+
+(defn execute-script-async
+  "Asynchronously execute JavaScript `script` in the context of the currently selected frame or window of `browser` with `arguments`."
+  [browser script & arguments]
+  (.executeAsyncScript browser script (to-array arguments)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; interrogate logs
 
 (defn available-log-types
@@ -339,4 +344,3 @@
             :value  (.getValue %2)})
    {}
    (.getCookies (.manage browser))))
-
