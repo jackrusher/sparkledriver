@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This change
 ## [Unreleased]
 ### Changed
 
+## [0.1.8] - 2017-06-24
+### Added
+- Functions to evaluate JS in the context of the current page:
+  `execute-script` and `execute-script-async`.
+### Changed
+- New all-local test harness no longer requires Internet access.
+
 ## [0.1.7] - 2017-06-19
 ### Added
 - functions for interacting with `alert`s (`switch-to-alert`,
@@ -50,5 +57,11 @@ All notable changes to this project will be documented in this file. This change
 - Initial release
 
 [Unreleased]: https://github.com/your-name/sparkledriver/compare/0.1.2...HEAD
+[0.1.8]: https://github.com/your-name/sparkledriver/compare/0.1.7...0.1.8
+[0.1.7]: https://github.com/your-name/sparkledriver/compare/0.1.6...0.1.7
+[0.1.6]: https://github.com/your-name/sparkledriver/compare/0.1.5...0.1.6
+[0.1.5]: https://github.com/your-name/sparkledriver/compare/0.1.4...0.1.5
+[0.1.4]: https://github.com/your-name/sparkledriver/compare/0.1.3...0.1.4
+[0.1.3]: https://github.com/your-name/sparkledriver/compare/0.1.2...0.1.3
 [0.1.2]: https://github.com/your-name/sparkledriver/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/your-name/sparkledriver/compare/0.1.0...0.1.1
