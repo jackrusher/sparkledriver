@@ -83,12 +83,18 @@
              "The ceremony of innocence is drowned")))
 
     (testing "javascript execution"
+      ;; use a script to set an attribute
       (execute-script browser "document.getElementById(\"heroic\")[\"data-villainous\"] = \"frenemy\";")
       (is (= (attr (find-by-id browser "heroic") "data-villainous")
+             "frenemy"))
+      ;; pass an element as an argument to javascript, receive it in return, get an attr from it
+      (is (= (attr (execute-script browser "return arguments[0];", (find-by-id browser "heroic")) "data-villainous")
              "frenemy"))))
   (stop-server))
 
 ;;(def browser (fetch! (make-browser) (str "http://0.0.0.0:" port)))
+
+;; (page-source browser)
 
 ;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) (str "http://0.0.0.0:" port))]
 ;;   (println (status-code browser))
