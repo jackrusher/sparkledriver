@@ -1,5 +1,7 @@
 # Sparkledriver
 
+![Sparkledriver glitter tractor](https://raw.githubusercontent.com/jackrusher/sparkledriver/master/assets/SparkleDriver.jpg)
+
 An slightly incomplete but fairly idiomatic wrapper
 around
 [jBrowserDriver](https://github.com/MachinePublishers/jBrowserDriver),
