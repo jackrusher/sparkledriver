@@ -12,10 +12,10 @@ of
 [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784).
 
 This library is useful when you need a full-featured browser with
-support for cookies, Javascript, and so on, all from within Clojure
-with no native dependencies. I've found it to be a nice basis for
-testing web applications, scraping content from Javascript-heavy
-websites, automating interactions with services, and so on.
+support for cookies, Javascript, and so on, with no native
+dependencies. I've found it to be a nice basis for testing web
+applications, scraping content from Javascript-heavy websites,
+automating interactions with services, and so on.
 
 ## Usage
 
