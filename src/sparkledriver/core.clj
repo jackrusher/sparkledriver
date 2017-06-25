@@ -127,12 +127,12 @@
   (.findElementsByXPath browser-or-elem xpath))
 
 (defn find-by-css
-  "Return the first element that matches `xpath`, starting from `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
+  "Return the first element that matches `css-selector`, starting from `browser-or-elem` (which can be a browser or element). Throws an exception if there's no such element!"
   [browser-or-elem css-selector]
   (.findElementByCssSelector browser-or-elem css-selector))
 
 (defn find-by-css*
-  "Return all elements that match `xpath`, starting from `browser-or-elem` (which can be a browser or element) or an empty sequence."
+  "Return all elements that match `css-selector`, starting from `browser-or-elem` (which can be a browser or element) or an empty sequence."
   [browser-or-elem css-selector]
   (.findElementsByCssSelector browser-or-elem css-selector))
 
