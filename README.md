@@ -40,6 +40,20 @@ While I intend to write more documentation at some point, for the time
 being there are doc strings for every function and macro, and the
 tests provide usage examples for many common tasks.
 
+## A Note on Dependencies
+
+A case has
+been [reported](https://github.com/jackrusher/sparkledriver/issues/5)
+where an old version of `common-codec`, as a library dependency, was
+causing the tests to fail. If you experience this issue, please add
+the following dependency:
+
+```clj
+[commons-codec "1.9"]
+```
+
+to your project.
+
 ## A Note on Completeness
 
 While there are still a few areas where the underlying APIs could be
