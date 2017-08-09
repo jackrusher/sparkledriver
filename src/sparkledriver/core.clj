@@ -169,6 +169,11 @@
   [element]
   (.getAttribute element "innerHTML"))
 
+(defn outer-html
+  "Return the outerHTML of `element`"
+  [element]
+  (.getAttribute element "outerHTML"))
+
 (defn screenshot
   "Takes a screenshot of `browser-or-element`'s current state and stores the image in a temporary file, then returns the file's absolute path."
   [browser-or-element]
