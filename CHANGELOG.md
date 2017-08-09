@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This change
 ## [Unreleased]
 ### Changed
 
+## [0.1.9] - 2017-08-09
+### Added
+- Functions to return an element's `outer-html`.
+- Tests for `inner-html` and `outer-html`.
+### Changed
+- Upgrade to jBrowserDriver `0.17.9`
+
 ## [0.1.8] - 2017-06-24
 ### Added
 - Functions to evaluate JS in the context of the current page:

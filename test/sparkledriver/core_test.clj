@@ -82,6 +82,12 @@
                  text)
              "The ceremony of innocence is drowned")))
 
+    (testing "inner/outer html"
+      (is (= (-> (find-by-xpath browser "//h1") outer-html)
+             "<h1 id=\"heroic\">Sparkledriver, driven</h1>"))
+      (is (= (-> (find-by-xpath browser "//h1") inner-html)
+             "Sparkledriver, driven")))
+    
     (testing "javascript execution"
       ;; use a script to set an attribute
       (execute-script browser "document.getElementById(\"heroic\")[\"data-villainous\"] = \"frenemy\";")
@@ -92,11 +98,11 @@
              "frenemy"))))
   (stop-server))
 
-;;(def browser (fetch! (make-browser) (str "http://0.0.0.0:" port)))
+;;(def browser (make-browser))
 
 ;; (page-source browser)
 
+;; (start-server port)
 ;; (with-browser [browser (fetch! (make-browser :screen-size [1900 1000]) (str "http://0.0.0.0:" port))]
-;;   (println (status-code browser))
-;;   (println (-> (find-by-tag browser "h2") text))
-;; )
+;;   (-> (find-by-tag browser "h1") inner-html)
+;;   )
