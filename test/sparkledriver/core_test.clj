@@ -4,9 +4,16 @@
             [org.httpkit.server :refer [run-server]]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [hiccup.core :refer [html]]))
+            [hiccup.core :refer [html]])
+  (:import java.net.URI))
 
 (def port 9999)
+(declare start-server stop-server)
+
+(use-fixtures :once (fn [tests]
+                      (start-server port)
+                      (tests)
+                      (stop-server)))
 
 (defonce server-handle (atom nil))
 
@@ -44,7 +51,6 @@
            (run-server taxi-server {:port port}))))
 
 (deftest basic-tests
-  (start-server port)
   (with-browser [browser (fetch! (make-browser) (str "http://0.0.0.0:" port))]
     (testing "loads the page"
       (is (= 200 (status-code browser))))
@@ -95,8 +101,14 @@
              "frenemy"))
       ;; pass an element as an argument to javascript, receive it in return, get an attr from it
       (is (= (attr (execute-script browser "return arguments[0];", (find-by-id browser "heroic")) "data-villainous")
-             "frenemy"))))
-  (stop-server))
+             "frenemy")))))
+
+(deftest fetch-test
+  (with-browser [browser (make-browser)]
+    (testing "it coerces the URL to string"
+      (let [url (str "http://0.0.0.0:" port "/the/path")]
+        (is (= (current-url (fetch! browser (URI. url))) url))))))
+
 
 ;;(def browser (make-browser))
 

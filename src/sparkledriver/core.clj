@@ -70,7 +70,7 @@
 (defn fetch!
   "Fetch 'url' using 'browser', return browser after loading is complete."
   [browser url]
-  (.get browser url)
+  (.get browser (str url))
   browser)
 
 (defn status-code

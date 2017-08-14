@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file. This change
 
 ## [Unreleased]
 ### Changed
+- `fetch!` now calls `str` on its argument, making it compatible with URL types like `java.net.URL` and `lambdaisland.uri.URI`.
 
 ## [0.1.9] - 2017-08-09
 ### Added
