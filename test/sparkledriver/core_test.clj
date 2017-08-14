@@ -20,6 +20,7 @@
 (def test-page
   [:html
    [:head
+    [:title "The Second Coming"]
     [:meta {:name "turning and turning" :content "in the widening gyre"}]
     [:meta {:name "the falcon" :content "cannot hear the falconer"}]
     [:meta {:name "things fall apart" :content "the centre cannot hold"}]]
@@ -101,7 +102,11 @@
              "frenemy"))
       ;; pass an element as an argument to javascript, receive it in return, get an attr from it
       (is (= (attr (execute-script browser "return arguments[0];", (find-by-id browser "heroic")) "data-villainous")
-             "frenemy")))))
+             "frenemy")))
+
+    (testing "page helpers"
+      (is (= (page-text browser) "Sparkledriver, driven\n\nAnd what rough beast, its hour come round at last\n\nSpiritus Mundi\n\nThe blood-dimmed tide is loosed, and everywhereThe ceremony of innocence is drowned"))
+      (is (= (title browser) "The Second Coming")))))
 
 (deftest fetch-test
   (with-browser [browser (make-browser)]

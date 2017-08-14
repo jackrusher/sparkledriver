@@ -150,7 +150,7 @@
   (.getAttribute element "id"))
 
 (defn text
-  "Return the complete textual content of `element` (including any children)."
+  "Return the complete visible textual content of `element` (including any children). Text from hidden elements is not included."
   [element]
   (.getText element))
 
@@ -349,3 +349,13 @@
             :value  (.getValue %2)})
    {}
    (.getCookies (.manage browser))))
+
+(defn page-text
+  "Return the complete visible textual content of the current page. Text from hidden elements is not included."
+  [browser]
+  (text (find-by-tag browser "html")))
+
+(defn title
+  "Return the title of the current page."
+  [browser]
+  (inner-html (find-by-css browser "head title")))
