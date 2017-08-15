@@ -106,7 +106,15 @@
 
     (testing "page helpers"
       (is (= (page-text browser) "Sparkledriver, driven\n\nAnd what rough beast, its hour come round at last\n\nSpiritus Mundi\n\nThe blood-dimmed tide is loosed, and everywhereThe ceremony of innocence is drowned"))
-      (is (= (title browser) "The Second Coming")))))
+      (is (= (title browser) "The Second Coming")))
+
+    (testing "cookies"
+      (add-cookie browser "hello" "SparkleDriver" {:domain "example.com" :path "/home"})
+      (is (= (browser-cookies->map browser)
+             {:hello
+              {:value "SparkleDriver" :domain "example.com" :path "/home"}}))
+      (delete-all-cookies browser)
+      (is (= (browser-cookies->map browser) {})))))
 
 (deftest fetch-test
   (with-browser [browser (make-browser)]

@@ -350,6 +350,36 @@
    {}
    (.getCookies (.manage browser))))
 
+(defn delete-all-cookies
+  "Clear all cookies from the browser."
+  [browser]
+  (.deleteAllCookies (.manage browser)))
+
+(defn- build-selenium-cookie [name value options]
+  (.build
+   (reduce
+    (fn [builder [k v]]
+      (case k
+        :domain (.domain builder v)
+        :expires-on (.expiresOn builder v)
+        :http-only (.isHttpOnly builder v)
+        :secure (.isSecure builder v)
+        :path (.path builder v)
+        builder))
+    (org.openqa.selenium.Cookie$Builder. name value)
+    options)))
+
+(defn add-cookie
+  "Add a cookie with given name and value. Options is a map which can take the following keys:
+  - :domain (String)
+  - :expires-on (java.util.Date)
+  - :http-only (Boolean)
+  - :secure (Boolean)
+  - :path (String)"
+  [browser name value & [options]]
+  (.addCookie (.manage browser) (build-selenium-cookie name value options))
+  browser)
+
 (defn page-text
   "Return the complete visible textual content of the current page. Text from hidden elements is not included."
   [browser]
