@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file. This change
 
 ## [Unreleased]
 ### Added
+### Changed
+
+## [0.1.10] - 2017-08-16
+### Added
 - `page-text` returns the textual content of the current page
 - `title` returns the page's title
 - `set-cookie!` set a cookie

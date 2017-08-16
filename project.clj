@@ -1,4 +1,4 @@
-(defproject sparkledriver "0.1.9"
+(defproject sparkledriver "0.1.10"
   :description "A clojure wrapper for jBrowserDriver, which is a Selenium-compatible wrapper around JFX embedded WebKit."
   :url "https://github.com/jackrusher/sparkledriver"
   :license {:name "Eclipse Public License"
