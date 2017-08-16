@@ -5,7 +5,7 @@
 A slightly incomplete but fairly idiomatic wrapper
 around
 [jBrowserDriver](https://github.com/MachinePublishers/jBrowserDriver),
-which is a pure-Java [Selenium]()-compatible interface to
+which is a pure-Java [Selenium](http://seleniumhq.org/)-compatible interface to
 the [WebKit](https://webkit.org) browser library included in recent
 JVM versions (>=1.8) as part
 of

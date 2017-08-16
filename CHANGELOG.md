@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 - `page-text` returns the textual content of the current page
 - `title` returns the page's title
+- `set-cookie!` set a cookie
+- `delete-cookies!` delete a specific cookie
+- `delete-all-cookies!` clear out the cookie jar
 
 ### Changed
 - `fetch!` now calls `str` on its argument, making it compatible with URL types like `java.net.URL` and `lambdaisland.uri.URI`.

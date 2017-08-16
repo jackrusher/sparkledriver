@@ -106,7 +106,33 @@
 
     (testing "page helpers"
       (is (= (page-text browser) "Sparkledriver, driven\n\nAnd what rough beast, its hour come round at last\n\nSpiritus Mundi\n\nThe blood-dimmed tide is loosed, and everywhereThe ceremony of innocence is drowned"))
-      (is (= (title browser) "The Second Coming")))))
+      (is (= (title browser) "The Second Coming")))
+
+    (testing "cookies"
+      (is (= (-> browser
+                 (set-cookie! "no-domain" "uses current domain")
+                 (set-cookie! "no-domain" "can be changed")
+                 (set-cookie! "with-domain" "SparkleDriver" :domain "example.org" :path "/home")
+                 browser-cookies->map)
+             {:no-domain   {:domain "0.0.0.0", :path "/", :value "can be changed"},
+              :with-domain {:domain "example.org", :path "/home", :value "SparkleDriver"}}))
+
+      (is (= (-> browser
+                 delete-all-cookies!
+                 browser-cookies->map) {}))
+
+      (is (= (-> browser
+                 (set-cookie! "a-cookie" "no domain" :path "/foo")
+                 (set-cookie! "a-cookie" "no domain" :path "/bar")
+                 (set-cookie! "a-cookie" "some domain" :domain "example.org")
+                 (set-cookie! "a-cookie" "some domain" :domain "example.org" :http-only true, :secure true, :path "/foo")
+                 (set-cookie! "a-cookie" "some other domain" :domain "clojure.org")
+                 (.. manage getCookies)
+                 (->> (map str))
+                 sort)
+             ["a-cookie=no domain; path=/bar; domain=0.0.0.0"
+              "a-cookie=some domain; path=/foo; domain=example.org;secure;"
+              "a-cookie=some other domain; path=/; domain=clojure.org"])))))
 
 (deftest fetch-test
   (with-browser [browser (make-browser)]
