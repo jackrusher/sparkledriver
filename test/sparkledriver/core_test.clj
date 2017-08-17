@@ -7,6 +7,9 @@
             [hiccup.core :refer [html]])
   (:import java.net.URI))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; setup a local webserver and test page
+
 (def port 9999)
 (declare start-server stop-server)
 
@@ -50,6 +53,9 @@
          (fn [_]
            (stop-server) ;; kill the old server first, if needed
            (run-server taxi-server {:port port}))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tests against the local test page
 
 (deftest basic-tests
   (with-browser [browser (fetch! (make-browser) (str "http://0.0.0.0:" port))]
@@ -140,6 +146,9 @@
       (let [url (str "http://0.0.0.0:" port "/the/path")]
         (is (= (current-url (fetch! browser (URI. url))) url))))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; for quick interactive tests
 
 ;;(def browser (make-browser))
 
