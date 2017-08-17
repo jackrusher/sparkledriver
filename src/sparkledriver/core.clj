@@ -2,9 +2,9 @@
 
 (def browser-options
   "The possible options for building a browser instance. The format is {:option [default setter-fn]}."
-  {;; how load to wait for resources loaded by ajax
+  {;; how long to wait for resources loaded by ajax, in milliseconds (default is quite long)
    :ajax-load-timeout [30000 #(.ajaxResourceTimeout %1 %2)]
-   ;; how long to wait for JS to run after page load
+   ;; how long to wait for JS to run after page load, in milliseconds
    :ajax-wait         [200 #(.ajaxWait %1 %2)]
    ;; use a local browser cache
    :cache             [true #(.cache %1 %2)]
@@ -13,6 +13,7 @@
    ;; increased logging
    :log-trace         [false #(.logTrace %1 %2)]
    :log-wire          [false #(.logWire %1 %2)]
+   ;; we pretend to be Chrome
    :request-headers   [com.machinepublishers.jbrowserdriver.RequestHeaders/CHROME #(.requestHeaders %1 %2)]
    ;; store copies of media and attachments in a temporary folder
    :save-attachments  [true #(.saveAttachments %1 %2)]
@@ -22,13 +23,15 @@
                                     (.screen builder (org.openqa.selenium.Dimension. w h)))]
    ;; be accepting of weird SSL certs
    :ssl-policy        ["compatible" #(.ssl %1 %2)]
+   ;; We're in New York, no matter where we are
    :timezone          [com.machinepublishers.jbrowserdriver.Timezone/AMERICA_NEWYORK #(.timezone %1 %2)]
+   ;; no, really, we're Chrome
    :user-agent        [com.machinepublishers.jbrowserdriver.UserAgent/CHROME #(.userAgent %1 %2)]
    ;; SSL certificate verification, off by default because the internet is broken
    :verify-hostname?  [false #(.hostnameVerification %1 %2)]})
 
 (defn make-browser
-  "Creates a new headless browser instance."
+  "Creates a new headless browser instance parameterized by `options`."
   [& options]
   (assert (or (= nil options) (even? (count options)))
           "The options to make-browser must be an even number of key-value pairs.")
@@ -55,9 +58,9 @@
     (catch Exception e nil)))
 
 (defmacro with-browser
-  "Evaluate `body` in a try block within which `binding` is bound, finally calling close-browser on binding. This is just a version of with-open that traps the exception that closing a jBrowserDriver currently throws. :("
+  "Evaluate `body` in a try block within which `binding` is bound, finally calling close-browser on binding. This is just a version of with-open that traps the exception that closing a jBrowserDriver instance currently throws."
   [binding & body]
-  ;; assert-args is private to clojure.core :(
+  ;; assert-args is private to clojure.core 😿
   ;; (assert-args
   ;;    (vector? binding) "a vector for its binding"
   ;;    (= 1 (count binding)) "a single name is expected"
@@ -357,7 +360,7 @@
   browser)
 
 (defn delete-cookie!
-  "Delete the named cookie from the given domain. When omitted `domain` defaults to the browser's current domain."
+  "Delete the named cookie from the given domain. When omitted `domain` defaults to the `browser`'s current domain."
   ([browser name]
    (delete-cookie! browser name (.getHost (java.net.URL. (current-url browser)))))
   ([browser name domain]
@@ -372,7 +375,7 @@
      browser)))
 
 (defn- build-selenium-cookie
-  "Build an instance of org.openqa.selenium.Cookie."
+  "Build an instance of org.openqa.selenium.Cookie with `name`, `value` and `options`."
   [name value options]
   (.build
    (reduce
@@ -403,11 +406,11 @@
   browser)
 
 (defn page-text
-  "Return the complete visible textual content of the current page. Text from hidden elements is not included."
+  "Return the complete visible textual content of the current page in the focused window of `browser`. Text from hidden elements is not included."
   [browser]
   (text (find-by-tag browser "html")))
 
 (defn title
-  "Return the title of the current page."
+  "Return the title of the current page in the focused window of `browser`."
   [browser]
   (inner-html (find-by-css browser "head title")))

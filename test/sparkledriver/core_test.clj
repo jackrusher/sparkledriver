@@ -146,7 +146,6 @@
       (let [url (str "http://0.0.0.0:" port "/the/path")]
         (is (= (current-url (fetch! browser (URI. url))) url))))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; for quick interactive tests
 

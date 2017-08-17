@@ -1,8 +1,6 @@
-# Sparkledriver
+# Introduction to sparkledriver
 
-![Sparkledriver glitter tractor](https://raw.githubusercontent.com/jackrusher/sparkledriver/master/assets/SparkleDriver.jpg)
-
-A mostly idiomatic wrapper
+Sparkledriver is a mostly idiomatic wrapper
 around
 [jBrowserDriver](https://github.com/MachinePublishers/jBrowserDriver),
 which is a pure-Java [Selenium](http://seleniumhq.org/)-compatible
@@ -36,36 +34,3 @@ retrieves the text of one:
       text))
 ;;=> "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use."
 ```
-
-There are many more specific examples in the test suite. In additon,
-the automatically
-generated [codox](https://github.com/weavejester/codox) documentation
-is [here](https://jackrusher.github.io/sparkledriver/).
-
-## A Note on Dependencies
-
-A case has
-been [reported](https://github.com/jackrusher/sparkledriver/issues/5)
-where an old version of `common-codec`, as a library dependency, was
-causing the tests to fail. If you experience this issue, please add
-the following dependency:
-
-```clj
-[commons-codec "1.9"]
-```
-
-to your project.
-
-## Completeness/Robustness
-
-While there are still a few areas where the underlying APIs could be
-more completely wrapped, the core functionality has been enrobed in
-delicious parentheses. Some bits are better tested than others, but I
-*am* currently using this library in production.
-
-## License
-
-Copyright © 2016, 2017 Jack Rusher
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
