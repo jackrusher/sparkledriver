@@ -36,8 +36,16 @@
 </pre></div></div><div class="public anchor" id="var-inner-html"><h3>inner-html</h3><div class="usage"><code>(inner-html element)</code></div><div class="doc"><pre class="plaintext">Return the innerHTML of `element`
 </pre></div></div><div class="public anchor" id="var-location"><h3>location</h3><div class="usage"><code>(location element)</code></div><div class="doc"><pre class="plaintext">Location on the page of the top left-hand corner of the rendered element.
 </pre></div></div><div class="public anchor" id="var-logs"><h3>logs</h3><div class="usage"><code>(logs browser &amp; kind)</code></div><div class="doc"><pre class="plaintext">Return `browser`'s logs of whatever `kind`, or all if not specified. See <a href="http://machinepublishers.github.io/jBrowserDriver/org/openqa/selenium/logging/LogEntry.html">http://machinepublishers.github.io/jBrowserDriver/org/openqa/selenium/logging/LogEntry.html</a> for details of the returned items.
-</pre></div></div><div class="public anchor" id="var-make-browser"><h3>make-browser</h3><div class="usage"><code>(make-browser &amp; options)</code></div><div class="doc"><pre class="plaintext">Creates a new headless browser instance parameterized by `options`.
-</pre></div></div><div class="public anchor" id="var-maximize-window"><h3>maximize-window</h3><div class="usage"><code>(maximize-window browser)</code></div><div class="doc"><pre class="plaintext">Maximize `browser`'s currently focused window.
+</pre></div></div><div class="public anchor" id="var-make-browser"><h3>make-browser</h3><div class="usage"><code>(make-browser &amp; options)</code></div><div class="doc"><pre class="plaintext">Creates a new headless browser instance parameterized by `options`. Examples:
+  
+```clojure
+  (make-browser :log-wire true) ; create a browser instance that logs network traffic
+
+  (make-browser :ajax-wait 1000) ; create a browser that will wait 1000ms for JS to run after page load
+
+  (make-browser :headless false) ; pop up a browser window to watch it work
+```
+  </pre></div></div><div class="public anchor" id="var-maximize-window"><h3>maximize-window</h3><div class="usage"><code>(maximize-window browser)</code></div><div class="doc"><pre class="plaintext">Maximize `browser`'s currently focused window.
 </pre></div></div><div class="public anchor" id="var-media-dir"><h3>media-dir</h3><div class="usage"><code>(media-dir browser)</code></div><div class="doc"><pre class="plaintext">Return the path to the directory where the browser is storing media files.
 </pre></div></div><div class="public anchor" id="var-outer-html"><h3>outer-html</h3><div class="usage"><code>(outer-html element)</code></div><div class="doc"><pre class="plaintext">Return the outerHTML of `element`
 </pre></div></div><div class="public anchor" id="var-page-source"><h3>page-source</h3><div class="usage"><code>(page-source browser)</code></div><div class="doc"><pre class="plaintext">Return the HTML source of the currently visited page in `browser`.
