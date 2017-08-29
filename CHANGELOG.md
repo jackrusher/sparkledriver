@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 ### Changed
 
+## [0.2.0] - 2017-08-29
+### Added
+- `sparkledriver.retry` namespace with code supporting automatic
+  retries
+- general improvement of documentation (docstrings and emitted codox
+  output)
+### Changed
+- Reorganized the code into multiple namespaces, by function.
+- element finding functions use the `*reply-fn*` dynamic variable to
+  specify a retry handler function.
+- `dismiss-alert` is now `dismiss-alert!`
+- `accept-alert` is now `accept-alert!`
+
 ## [0.1.10] - 2017-08-16
 ### Added
 - `page-text` returns the textual content of the current page

@@ -1,6 +1,9 @@
 (ns sparkledriver.core-test
   (:require [clojure.test :refer :all]
-            [sparkledriver.core :refer :all]
+            [sparkledriver.browser :refer :all]
+            [sparkledriver.element :refer :all]
+            [sparkledriver.cookies :refer :all]
+            [sparkledriver.retry :refer :all]
             [org.httpkit.server :refer [run-server]]
             [compojure.core :refer :all]
             [compojure.route :as route]
@@ -145,6 +148,22 @@
     (testing "it coerces the URL to string"
       (let [url (str "http://0.0.0.0:" port "/the/path")]
         (is (= (current-url (fetch! browser (URI. url))) url))))))
+
+(deftest retry-test
+  (testing "retry success"
+    (is (= "success")
+        (let [n (atom 1)]
+          (with-retry (partial retry-backoff 8 (fn [_] (swap! n dec)))
+            (*retry-fn* 
+             #(if (= 0 @n)
+                "success"
+                (throw (Exception. "fail!"))))))))
+  (testing "retry failure"
+    (is (= "fail!"
+           (try
+             (with-retry (partial retry-backoff 4)
+               (*retry-fn* #(throw (Exception. "fail!"))))
+             (catch Exception e "fail!"))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; for quick interactive tests

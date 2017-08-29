@@ -18,14 +18,15 @@ automating interactions with services, and so on.
 ## Quick Start
 
 ``` clojure
-[sparkledriver "0.1.10"]
+[sparkledriver "0.2.0"]
 ```
 
 This example fetches the Clojure homepage, extracts some elements and
 retrieves the text of one:
 
 ``` clojure
-(require '[sparkledriver.core :refer [with-browser make-browser fetch! find-by-xpath* text]])
+(require '[sparkledriver.browser :refer [with-browser make-browser fetch!]])
+(require '[sparkledriver.element :refer [find-by-xpath* text]])
 
 (with-browser [browser (make-browser)]
   (-> (fetch! browser "http://clojure.org")
