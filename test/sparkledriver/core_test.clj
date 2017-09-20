@@ -42,7 +42,9 @@
     [:div
      [:p#loosed-upon-the-world.some-revelation {:style "color:red;"}
       [:span.mere-anarchy "The blood-dimmed tide is loosed, and everywhere"]
-      [:span.mere-anarchy "The ceremony of innocence is drowned"]]]]])
+      [:span.mere-anarchy "The ceremony of innocence is drowned"]]]
+    [:div
+     [:img#test-ad {:src "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="}]]]])
 
 (defroutes taxi-server
   (GET "/" [] (html test-page))
@@ -164,6 +166,15 @@
              (with-retry (partial retry-backoff 4)
                (*retry-fn* #(throw (Exception. "fail!"))))
              (catch Exception e "fail!"))))))
+
+(deftest block-ads
+  (let [js "function isAdLoaded(img) { if (typeof img === 'undefined') { return true; }; if (typeof img.naturalWidth !== 'undefined' && img.naturalWidth <= 1) { return true; }; return false; }\n
+            document.getElementById('test-ad').src = 'http://widgets.outbrain.com/images/widgetIcons/ob_logo_16x16.png?advertiser=1&' + escape(new Date());\n
+            return isAdLoaded(document.getElementById('test-ad'));"]
+    (testing "ad should get blocked"
+      (with-browser [browser (fetch! (make-browser :block-ads true) (str "http://0.0.0.0:" port))]
+        (is (= (execute-script browser js)
+               true))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; for quick interactive tests

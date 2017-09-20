@@ -7,6 +7,8 @@
    :ajax-load-timeout [30000 #(.ajaxResourceTimeout %1 %2)]
    ;; how long to wait for JS to run after page load, in milliseconds
    :ajax-wait         [200 #(.ajaxWait %1 %2)]
+   ;; whether requests to ad/spam servers should be blocked
+   :block-ads         [false #(.blockAds %1 %2)]
    ;; use a local browser cache
    :cache             [true #(.cache %1 %2)]
    ;; if false, open a window so you can watch it work
