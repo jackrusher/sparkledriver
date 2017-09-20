@@ -35,3 +35,20 @@ retrieves the text of one:
       text))
 ;;=> "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use."
 ```
+
+### Laziness and resource management
+
+Note that we cannot return a lazy collection of elements from inside
+the `with-browser` macro, as the underlying browser will no longer
+exist by the time the collection is realized. So, for example, if we
+were to modify the above example to look like this:
+
+``` clojure
+(with-browser [browser (make-browser)]
+  (-> (fetch! browser "http://clojure.org")
+      (find-by-xpath* "//div[@class='clj-intro-message']/p")))
+;;=> "I hope you find Clojure's combination of facilities elegant, powerful, practical and fun to use."
+```
+
+The elements returned by `find-by-xpath` would be inaccessible outside
+of the `with-browser` macro.

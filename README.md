@@ -17,6 +17,11 @@ dependencies. I've found it to be a nice basis for testing web
 applications, scraping content from Javascript-heavy websites,
 automating interactions with services, and so on.
 
+**N.B.** While Oracle's JVM bundles JavaFX, the OpenJDK JVM does not
+come with it. If you're using OpenJDK (which is the default on
+_ubuntu_, for example), you must also install the OpenJFX package on
+your chosen platform in order to use this library.
+
 ## Quick Start
 
 ``` clojure
