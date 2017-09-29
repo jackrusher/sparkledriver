@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 ### Changed
 
+## [0.2.1] - 2017-09-29
+### Added
+- `(make-browser :block-ads true)` now creates a browser instance that
+  blocks
+  ads. [Thanks](https://github.com/jackrusher/sparkledriver/pull/14),
+  Andreas.
+### Changed
+- Documentation and tests improved.
+### Fixed
+- [Issue](https://github.com/jackrusher/sparkledriver/issues/17) where
+  sparkledriver would hang if `close-browser!` was called while (a)
+  more than one window was open, and (b) the current focus wasn't the
+  first window.
+
 ## [0.2.0] - 2017-08-29
 ### Added
 - `sparkledriver.retry` namespace with code supporting automatic
