@@ -63,6 +63,11 @@
 (defn close-browser!
   "Close a browser instance, killing the underlying subprocess and freeing all resources."
   [browser]
+  ;; upstream bug causes crash when not on the first window when there
+  ;; are multiple open windows
+  (let [handles (.getWindowHandles browser)]
+    (when (> (count handles) 1)
+      (.window (.switchTo browser) (first handles))))
   (.quit browser))
 
 (defmacro with-browser

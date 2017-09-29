@@ -167,6 +167,13 @@
                (*retry-fn* #(throw (Exception. "fail!"))))
              (catch Exception e "fail!"))))))
 
+(deftest close-test
+  (with-browser [browser (fetch! (make-browser) (str "http://0.0.0.0:" port "/"))]
+    (testing "can close the browser with multiple windows open"
+      (execute-script browser (str "window.open('http://0.0.0.0:" port "');"))
+      (switch-to-window browser "1")
+      (find-by-tag browser "h1"))))
+
 (deftest block-ads
   (let [js "function isAdLoaded(img) { if (typeof img === 'undefined') { return true; }; if (typeof img.naturalWidth !== 'undefined' && img.naturalWidth <= 1) { return true; }; return false; }\n
             document.getElementById('test-ad').src = 'http://widgets.outbrain.com/images/widgetIcons/ob_logo_16x16.png?advertiser=1&' + escape(new Date());\n
