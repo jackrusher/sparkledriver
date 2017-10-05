@@ -102,7 +102,10 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.1] - 2016-11-04
 - Initial release
 
-[Unreleased]: https://github.com/your-name/sparkledriver/compare/0.1.2...HEAD
+[Unreleased]: https://github.com/your-name/sparkledriver/compare/0.2.1...HEAD
+[0.2.1]: https://github.com/your-name/sparkledriver/compare/0.2.1...0.2.1
+[0.2.0]: https://github.com/your-name/sparkledriver/compare/0.1.9...0.2.0
+[0.1.9]: https://github.com/your-name/sparkledriver/compare/0.1.8...0.1.9
 [0.1.8]: https://github.com/your-name/sparkledriver/compare/0.1.7...0.1.8
 [0.1.7]: https://github.com/your-name/sparkledriver/compare/0.1.6...0.1.7
 [0.1.6]: https://github.com/your-name/sparkledriver/compare/0.1.5...0.1.6
