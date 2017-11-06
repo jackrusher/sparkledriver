@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 ### Changed
 
+## [0.2.2] - 2017-11-06
+### Changed
+- Upgrade to jBrowserDriver `0.17.11`
+
 ## [0.2.1] - 2017-09-29
 ### Added
 - `(make-browser :block-ads true)` now creates a browser instance that
