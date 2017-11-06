@@ -25,7 +25,7 @@ your chosen platform in order to use this library.
 ## Quick Start
 
 ``` clojure
-[sparkledriver "0.2.0"]
+[sparkledriver "0.2.2"]
 ```
 
 This example fetches the Clojure homepage, extracts some elements and
