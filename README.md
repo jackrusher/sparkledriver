@@ -25,7 +25,7 @@ your chosen platform in order to use this library.
 ## Quick Start
 
 ``` clojure
-[sparkledriver "0.2.0"]
+[sparkledriver "0.2.3"]
 ```
 
 This example fetches the Clojure homepage, extracts some elements and
@@ -71,7 +71,7 @@ delicious parentheses. Some bits are better tested than others, but I
 
 ## License
 
-Copyright © 2016, 2017 Jack Rusher
+Copyright © 2016-2018 Jack Rusher
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
