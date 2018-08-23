@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 ### Changed
 
+## [0.2.3] - 2018-08-23
+### Changed
+- Upgrade to jBrowserDriver `1.0.0`
+- Tested against clojure `1.9.0`
+
 ## [0.2.2] - 2017-11-06
 ### Changed
 - Upgrade to jBrowserDriver `0.17.11`
