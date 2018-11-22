@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 ### Changed
 
+## [0.2.4] - 2018-11-22
+### Changed
+- Upgrade to jBrowserDriver `1.0.1`
+
 ## [0.2.3] - 2018-08-23
 ### Changed
 - Upgrade to jBrowserDriver `1.0.0`
