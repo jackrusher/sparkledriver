@@ -1,5 +1,9 @@
 # Sparkledriver
 
+**Because of changes to the underlying JavaFX libraries, this library
+currently works with Java 1.8! It will fail immediately on more modern
+JVMs.**
+
 ![Sparkledriver glitter tractor](https://raw.githubusercontent.com/jackrusher/sparkledriver/master/assets/SparkleDriver.jpg)
 
 A mostly idiomatic wrapper
@@ -71,7 +75,7 @@ delicious parentheses. Some bits are better tested than others, but I
 
 ## License
 
-Copyright © 2016-2018 Jack Rusher
+Copyright © 2016-2019 Jack Rusher
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
